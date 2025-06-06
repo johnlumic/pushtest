@@ -25,6 +25,14 @@ Pushwoosh.push(['init', {
         'Name': 'John Smith'     // optional, set custom Tags
     }
 }]);
+    // Load Event
+Pushwoosh.push(['onLoad', (api) => {
+  console.log('Pushwoosh load!');
+}]);
+    // Ready Event
+Pushwoosh.push((api) => {
+  console.log('Pushwoosh ready!');
+});
 </script>
 </body>
 </html>
