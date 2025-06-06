@@ -7,16 +7,20 @@
 </head>
 <body>
   <h1>Hello, world!</h1>
-  <script>
-  var pushwoosh = Pushwoosh.init({
-    applicationCode: 'F37B9-FCF38', // ← сюда вставь свой Application Code
+ <script>
+  const pushwoosh = Pushwoosh.init({
+    logLevel: 'info', // Убрать в продакшене
+    applicationCode: 'F37B9-FCF38', 
     defaultNotificationTitle: 'Hello!',
     defaultNotificationImage: 'https://via.placeholder.com/128',
-    serviceWorkerUrl: 'service-worker.js',
+    serviceWorkerUrl: 'pushtest/service-worker.js', // путь с учётом подкаталога
   });
 
   pushwoosh.push(() => {
-    pushwoosh.registerForPushNotifications();
+    // Регистрация Service Worker вручную с указанием scope
+    navigator.serviceWorker.register('pushtest/service-worker.js', { scope: '/pushtest/' })
+      .then(() => pushwoosh.registerForPushNotifications())
+      .catch(console.error);
   });
 </script>
 </body>
