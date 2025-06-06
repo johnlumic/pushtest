@@ -32,6 +32,17 @@ Pushwoosh.push(['onLoad', (api) => {
 Pushwoosh.push((api) => {
   console.log('Pushwoosh ready!');
 });
+    Pushwoosh.push(['onLoad', (api) => {
+  function onEventNameHandler() {
+    console.log('Triggered event: event-name!');
+  }
+
+  // To subscribe to an event:
+  Pushwoosh.addEventHandler('event-name', onEventNameHandler)
+
+  // To unsubscribe from an event:
+  Pushwoosh.removeEventHandler('event-name', onEventNameHandler)
+}]);
 </script>
 </body>
 </html>
