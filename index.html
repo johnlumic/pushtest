@@ -7,21 +7,24 @@
 </head>
 <body>
   <h1>Hello, world!</h1>
- <script>
-  const pushwoosh = Pushwoosh.init({
-    logLevel: 'info', // Убрать в продакшене
-    applicationCode: 'F37B9-FCF38', 
-    defaultNotificationTitle: 'Hello!',
-    defaultNotificationImage: 'https://via.placeholder.com/128',
-    serviceWorkerUrl: 'pushtest/service-worker.js', // путь с учётом подкаталога
-  });
-
-  pushwoosh.push(() => {
-    // Регистрация Service Worker вручную с указанием scope
-    navigator.serviceWorker.register('pushtest/service-worker.js', { scope: '/pushtest/' })
-      .then(() => pushwoosh.registerForPushNotifications())
-      .catch(console.error);
-  });
+<script type="text/javascript">
+var Pushwoosh = Pushwoosh || [];
+Pushwoosh.push(['init', {
+    logLevel: 'info', // possible values: error, info, debug
+    applicationCode: 'F37B9-FCF38', // you application code from Pushwoosh Control Panel
+    apiToken: 'XXXXXXX', //  Device API Token
+    
+    defaultNotificationTitle: 'Pushwoosh', // sets a default title for push notifications
+    
+    autoSubscribe: false, // or true. If true, prompts a user to subscribe for pushes upon SDK initialization
+    subscribeWidget: {
+      enable: true
+    },
+    
+    tags: {
+        'Name': 'John Smith'     // optional, set custom Tags
+    }
+}]);
 </script>
 </body>
 </html>
