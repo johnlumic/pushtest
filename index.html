@@ -1,33 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-  <script src="https://cdn.pushwoosh.com/webpush/v3/pushwoosh-web-notifications.js" async></script>
   <meta charset="UTF-8">
-  <title>Hello World</title>
+  <title>Pushwoosh Demo</title>
+  <link rel="manifest" href="/pushtest/manifest.json">
+  <script src="https://cdn.pushwoosh.com/webpush/v3/pushwoosh-web-notifications.js" async></script>
 </head>
 <body>
-  <h1>Hello, world!</h1>
-<script>
-  var Pushwoosh = Pushwoosh || [];
-  Pushwoosh.push(['init', {
-    logLevel: 'info', // Уровень логирования: error, info, debug
-    applicationCode: 'F37B9-FCF38', // Замени на свой Application Code
-    defaultNotificationTitle: 'Hello!',
-    defaultNotificationImage: 'https://via.placeholder.com/128',
-    serviceWorkerUrl: '/pushtest/service-worker.js'
-  }]);
+  <h1>hellow world</h1>
+  <button id="subscribe">Подписаться на уведомления</button>
 
-  // Регистрация Service Worker с указанием scope
-  navigator.serviceWorker.register('/pushtest/service-worker.js', { scope: '/pushtest/' })
-    .then(function(registration) {
-      console.log('Service Worker зарегистрирован с scope:', registration.scope);
-      Pushwoosh.push(function() {
-        Pushwoosh.subscribe();
-      });
-    })
-    .catch(function(error) {
-      console.error('Ошибка при регистрации Service Worker:', error);
+  <script>
+    const pushwooshAppCode = 'F37B9-FCF38'; // ← сюда вставь свой реальный код из кабинета Pushwoosh
+
+    var Pushwoosh = Pushwoosh || [];
+    Pushwoosh.push(['init', {
+      logLevel: 'info',
+      applicationCode: pushwooshAppCode,
+      defaultNotificationTitle: 'Привет!',
+      defaultNotificationImage: 'https://via.placeholder.com/128',
+      serviceWorkerUrl: '/pushtest/service-worker.js'
+    }]);
+
+    document.getElementById('subscribe').addEventListener('click', function () {
+      navigator.serviceWorker.register('/pushtest/service-worker.js', { scope: '/pushtest/' })
+        .then(function (registration) {
+          console.log('SW зарегистрирован:', registration.scope);
+          Pushwoosh.push(function () {
+            Pushwoosh.subscribe();
+          });
+        })
+        .catch(function (error) {
+          console.error('Ошибка регистрации SW:', error);
+        });
     });
-</script>
+  </script>
 </body>
 </html>
