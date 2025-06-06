@@ -27,30 +27,6 @@ Pushwoosh.push(['init', {
         'Name': 'John Smith'     // optional, set custom Tags
     }
 }]);
-    // Load Event
-Pushwoosh.push(['onLoad', (api) => {
-  console.log('Pushwoosh load!');
-}]);
-    // Ready Event
-Pushwoosh.push((api) => {
-  console.log('Pushwoosh ready!');
-});
-    Pushwoosh.push(['onLoad', (api) => {
-  // Executed during the SDK initialization if 'autoSubscribe: false' or/and if a user ignores a push notification prompt.
-  Pushwoosh.addEventHandler('permission-default', (payload) => {
-    console.log('Triggered event: permission-default');
-  });
-
-  // Executed during the SDK initialization if notifications are blocked or once a user blocks push notifications.
-  Pushwoosh.addEventHandler('permission-denied', (payload) => {
-    console.log('Triggered event: permission-denied');
-  });
-
-  // Executed during the SDK initialization if notifications are allowed or once a user allows push notifications.
-  Pushwoosh.addEventHandler('permission-granted', (payload) => {
-    console.log('Triggered event: permission-granted');
-  });
-}]);
 </script>
 </body>
 </html>
